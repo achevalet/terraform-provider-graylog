@@ -28,6 +28,7 @@ func getDataFromResourceData(d *schema.ResourceData) (map[string]interface{}, er
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse the 'attributes'. 'attributes' must be a JSON string: %w", err)
 	}
+	stripEncryptedValueRead(attr)
 	data[keyAttributes] = attr
 
 	delete(data, keyCreatedAt)
