@@ -6,10 +6,13 @@ import (
 	"net/http"
 
 	"github.com/suzuki-shunsuke/go-httpclient/httpclient"
+
+	"github.com/shk3bq4d/terraform-provider-graylog/graylog/client/request"
 )
 
 type Client struct {
-	Client httpclient.Client
+	Client      httpclient.Client
+	ServerMajor int
 }
 
 func (cl Client) Get(
@@ -39,7 +42,7 @@ func (cl Client) Create(
 	resp, err := cl.Client.Call(ctx, httpclient.CallParams{
 		Method:       "POST",
 		Path:         "/events/definitions",
-		RequestBody:  data,
+		RequestBody:  request.CreateEntity(cl.ServerMajor, data),
 		ResponseBody: &body,
 	})
 	return body, resp, err

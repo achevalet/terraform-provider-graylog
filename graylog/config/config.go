@@ -7,6 +7,7 @@ type Config struct {
 	AuthPassword string
 	XRequestedBy string
 	APIVersion   string
+	ServerMajor  int
 }
 
 func (Config) LoadAndValidate() error {

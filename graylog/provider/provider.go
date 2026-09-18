@@ -1,6 +1,8 @@
 package provider
 
 import (
+	"fmt"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	"github.com/shk3bq4d/terraform-provider-graylog/graylog/config"
@@ -18,6 +20,13 @@ func Configure(d *schema.ResourceData) (interface{}, error) {
 	if err := cfg.LoadAndValidate(); err != nil {
 		return nil, err
 	}
+
+	major, err := serverMajor(cfg)
+	if err != nil {
+		return nil, fmt.Errorf("determine the Graylog version: %w", err)
+	}
+	cfg.ServerMajor = major
+
 	return cfg, nil
 }
 

@@ -106,10 +106,12 @@ func New(m interface{}) (Client, error) {
 			Client: httpClient,
 		},
 		EventDefinition: definition.Client{
-			Client: httpClient,
+			Client:      httpClient,
+			ServerMajor: cfg.ServerMajor,
 		},
 		EventNotification: notification.Client{
-			Client: httpClient,
+			Client:      httpClient,
+			ServerMajor: cfg.ServerMajor,
 		},
 		Extractor: extractor.Client{
 			Client: httpClient,
@@ -151,7 +153,8 @@ func New(m interface{}) (Client, error) {
 			Client: httpClient,
 		},
 		Stream: stream.Client{
-			Client: httpClient,
+			Client:      httpClient,
+			ServerMajor: cfg.ServerMajor,
 		},
 		StreamOutput: streamOutput.Client{
 			Client: httpClient,
