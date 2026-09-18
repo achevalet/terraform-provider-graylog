@@ -29,7 +29,7 @@ func Resource() *schema.Resource {
 			"config": {
 				Type:             schema.TypeString,
 				Required:         true,
-				DiffSuppressFunc: util.SchemaDiffSuppressJSONString,
+				DiffSuppressFunc: SchemaDiffSuppressConfig,
 				ValidateFunc:     util.ValidateIsJSON,
 			},
 		},
