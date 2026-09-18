@@ -12,7 +12,8 @@ import (
 )
 
 type Client struct {
-	Client httpclient.Client
+	Client      httpclient.Client
+	ServerMajor int
 }
 
 func (cl Client) Get(ctx context.Context, id string) (map[string]interface{}, *http.Response, error) {
@@ -92,6 +93,16 @@ func (cl Client) Update(
 	}
 	if data == nil {
 		return nil, nil, errors.New("request body is nil")
+	}
+
+	if cl.ServerMajor >= 7 {
+		// 7 requires id in the body as well as the path
+		withID := make(map[string]interface{}, len(data)+1)
+		for k, v := range data {
+			withID[k] = v
+		}
+		withID["id"] = id
+		data = withID
 	}
 
 	body := map[string]interface{}{}

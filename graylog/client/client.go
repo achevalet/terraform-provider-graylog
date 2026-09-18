@@ -120,7 +120,8 @@ func New(m interface{}) (Client, error) {
 			Client: httpClient,
 		},
 		IndexSet: indexset.Client{
-			Client: httpClient,
+			Client:      httpClient,
+			ServerMajor: cfg.ServerMajor,
 		},
 		Input: input.Client{
 			Client: httpClient,
